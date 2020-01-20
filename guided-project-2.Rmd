@@ -6,7 +6,13 @@ output: html_notebook
 ---
 
 ```{r}
-
+library(readr)
+library(dplyr)
+```
+```{r}
+school_df <- read_csv("project-2-data/combined.csv")
+survey_df1 <- read_tsv("project-2-data/masterfile11_gened_final.txt")
+survey_df2 <- read_tsv("project-2-data/masterfile11_d75_final.txt")
 ```
 
 
