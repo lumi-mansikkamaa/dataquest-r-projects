@@ -1,0 +1,13 @@
+---
+title: "Guided Project #2: Analysis on NYC Schools Survey Data"
+author: "Beste Erdem"
+date: "January 20, 2020"
+output: html_notebook
+---
+
+```{r}
+
+```
+
+
+
