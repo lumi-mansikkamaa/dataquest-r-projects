@@ -1759,100 +1759,35 @@ summary {
 <pre class="r"><code>library(readr)
 library(dplyr)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYZHBseXLigJlcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOnN0YXRz4oCZOlxuXG4gICAgZmlsdGVyLCBsYWdcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmJhc2XigJk6XG5cbiAgICBpbnRlcnNlY3QsIHNldGRpZmYsIHNldGVxdWFsLCB1bmlvblxuIn0= -->
-<pre><code>
-Attaching package: ‘dplyr’
-
-The following objects are masked from ‘package:stats’:
-
-    filter, lag
-
-The following objects are masked from ‘package:base’:
-
-    intersect, setdiff, setequal, union</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>School data I’ve already cleaned on the previous module: <a href="https://data.world/dataquest/nyc-schools-data/workspace/file?filename=combined.csv" class="uri">https://data.world/dataquest/nyc-schools-data/workspace/file?filename=combined.csv</a> School survey data: <a href="https://data.cityofnewyork.us/Education/2011-NYC-School-Survey/mnz3-dyi8" class="uri">https://data.cityofnewyork.us/Education/2011-NYC-School-Survey/mnz3-dyi8</a></p>
+<!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2Nob29sX2RmIDwtIHJlYWRfY3N2KFwicHJvamVjdC0yLWRhdGEvY29tYmluZWQuY3N2XCIpXG5gYGAifQ== -->
-<pre class="r"><code>school_df &lt;- read_csv(&quot;project-2-data/combined.csv&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2Nob29sX2RmIDwtIHJlYWRfY3N2KFwicHJvamVjdC0yLWRhdGEvY29tYmluZWQuY3N2XCIpXG5zdXJ2ZXlfZGYxIDwtIHJlYWRfdHN2KFwicHJvamVjdC0yLWRhdGEvbWFzdGVyZmlsZTExX2dlbmVkX2ZpbmFsLnR4dFwiKVxuc3VydmV5X2RmMiA8LSByZWFkX3RzdihcInByb2plY3QtMi1kYXRhL21hc3RlcmZpbGUxMV9kNzVfZmluYWwudHh0XCIpXG5gYGAifQ== -->
+<pre class="r"><code>school_df &lt;- read_csv(&quot;project-2-data/combined.csv&quot;)
+survey_df1 &lt;- read_tsv(&quot;project-2-data/masterfile11_gened_final.txt&quot;)
+survey_df2 &lt;- read_tsv(&quot;project-2-data/masterfile11_d75_final.txt&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICAuZGVmYXVsdCA9IGNvbF9kb3VibGUoKSxcbiAgREJOID0gXHUwMDFiWzMxbWNvbF9jaGFyYWN0ZXIoKVx1MDAxYlszOW0sXG4gIHNjaG9vbF9uYW1lID0gXHUwMDFiWzMxbWNvbF9jaGFyYWN0ZXIoKVx1MDAxYlszOW0sXG4gIGJvcm8gPSBcdTAwMWJbMzFtY29sX2NoYXJhY3RlcigpXHUwMDFiWzM5bVxuKVxuU2VlIHNwZWMoLi4uKSBmb3IgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbnMuXG4ifQ== -->
-<pre><code>Parsed with column specification:
-cols(
-  .default = col_double(),
-  DBN = [31mcol_character()[39m,
-  school_name = [31mcol_character()[39m,
-  boro = [31mcol_character()[39m
-)
-See spec(...) for full column specifications.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VydmV5X2RmMSA8LSByZWFkX3RzdihcInByb2plY3QtMi1kYXRhL21hc3RlcmZpbGUxMV9nZW5lZF9maW5hbC50eHRcIilcbmBgYCJ9 -->
-<pre class="r"><code>survey_df1 &lt;- read_tsv(&quot;project-2-data/masterfile11_gened_final.txt&quot;)</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Filter survey data to include observations only for high schools &amp; select the necessary columns for the analysis</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBGaWx0ZXIgYHN1cnZleWAgZGF0YSB0byBpbmNsdWRlIG9ubHkgaGlnaCBzY2hvb2xzIGFuZCBzZWxlY3QgY29sdW1ucyBuZWVkZWQgZm9yIGFuYWx5c2lzIGJhc2VkIG9uIHRoZSBkYXRhIGRpY3Rpb25hcnkuXG5zdXJ2ZXlfZGYxX3NlbGVjdCA8LSBzdXJ2ZXlfZGYxICU+JSBmaWx0ZXIoc2Nob29sdHlwZSA9PSBcIkhpZ2ggU2Nob29sXCIpICU+JSBzZWxlY3QoZGJuOmFjYV90b3RfMTEpXG5zdXJ2ZXlfZGYyX3NlbGVjdCA8LSBzdXJ2ZXlfZGYyICU+JSBzZWxlY3QoZGJuOmFjYV90b3RfMTEpXG5gYGAifQ== -->
+<pre class="r"><code># Filter `survey` data to include only high schools and select columns needed for analysis based on the data dictionary.
+survey_df1_select &lt;- survey_df1 %&gt;% filter(schooltype == &quot;High School&quot;) %&gt;% select(dbn:aca_tot_11)
+survey_df2_select &lt;- survey_df2 %&gt;% select(dbn:aca_tot_11)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICAuZGVmYXVsdCA9IGNvbF9kb3VibGUoKSxcbiAgZGJuID0gXHUwMDFiWzMxbWNvbF9jaGFyYWN0ZXIoKVx1MDAxYlszOW0sXG4gIGJuID0gXHUwMDFiWzMxbWNvbF9jaGFyYWN0ZXIoKVx1MDAxYlszOW0sXG4gIHNjaG9vbG5hbWUgPSBcdTAwMWJbMzFtY29sX2NoYXJhY3RlcigpXHUwMDFiWzM5bSxcbiAgc3R1ZGVudHNzdXJ2ZXllZCA9IFx1MDAxYlszMW1jb2xfY2hhcmFjdGVyKClcdTAwMWJbMzltLFxuICBzY2hvb2x0eXBlID0gXHUwMDFiWzMxbWNvbF9jaGFyYWN0ZXIoKVx1MDAxYlszOW0sXG4gIHBfcTEgPSBcdTAwMWJbMzNtY29sX2xvZ2ljYWwoKVx1MDAxYlszOW0sXG4gIHBfcTNkID0gXHUwMDFiWzMzbWNvbF9sb2dpY2FsKClcdTAwMWJbMzltLFxuICBwX3E5ID0gXHUwMDFiWzMzbWNvbF9sb2dpY2FsKClcdTAwMWJbMzltLFxuICBwX3ExMCA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgcF9xMTJhYSA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgcF9xMTJhYiA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgcF9xMTJhYyA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgcF9xMTJhZCA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgcF9xMTJiYSA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgcF9xMTJiYiA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgcF9xMTJiYyA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgcF9xMTJiZCA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgdF9xNm0gPSBcdTAwMWJbMzNtY29sX2xvZ2ljYWwoKVx1MDAxYlszOW0sXG4gIHRfcTkgPSBcdTAwMWJbMzNtY29sX2xvZ2ljYWwoKVx1MDAxYlszOW0sXG4gIHRfcTEwYSA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bVxuICAjIC4uLiB3aXRoIDE4IG1vcmUgY29sdW1uc1xuKVxuU2VlIHNwZWMoLi4uKSBmb3IgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbnMuXG4ifQ== -->
-<pre><code>Parsed with column specification:
-cols(
-  .default = col_double(),
-  dbn = [31mcol_character()[39m,
-  bn = [31mcol_character()[39m,
-  schoolname = [31mcol_character()[39m,
-  studentssurveyed = [31mcol_character()[39m,
-  schooltype = [31mcol_character()[39m,
-  p_q1 = [33mcol_logical()[39m,
-  p_q3d = [33mcol_logical()[39m,
-  p_q9 = [33mcol_logical()[39m,
-  p_q10 = [33mcol_logical()[39m,
-  p_q12aa = [33mcol_logical()[39m,
-  p_q12ab = [33mcol_logical()[39m,
-  p_q12ac = [33mcol_logical()[39m,
-  p_q12ad = [33mcol_logical()[39m,
-  p_q12ba = [33mcol_logical()[39m,
-  p_q12bb = [33mcol_logical()[39m,
-  p_q12bc = [33mcol_logical()[39m,
-  p_q12bd = [33mcol_logical()[39m,
-  t_q6m = [33mcol_logical()[39m,
-  t_q9 = [33mcol_logical()[39m,
-  t_q10a = [33mcol_logical()[39m
-  # ... with 18 more columns
-)
-See spec(...) for full column specifications.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VydmV5X2RmMiA8LSByZWFkX3RzdihcInByb2plY3QtMi1kYXRhL21hc3RlcmZpbGUxMV9kNzVfZmluYWwudHh0XCIpXG5gYGAifQ== -->
-<pre class="r"><code>survey_df2 &lt;- read_tsv(&quot;project-2-data/masterfile11_d75_final.txt&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICAuZGVmYXVsdCA9IGNvbF9kb3VibGUoKSxcbiAgZGJuID0gXHUwMDFiWzMxbWNvbF9jaGFyYWN0ZXIoKVx1MDAxYlszOW0sXG4gIGJuID0gXHUwMDFiWzMxbWNvbF9jaGFyYWN0ZXIoKVx1MDAxYlszOW0sXG4gIHNjaG9vbG5hbWUgPSBcdTAwMWJbMzFtY29sX2NoYXJhY3RlcigpXHUwMDFiWzM5bSxcbiAgc3R1ZGVudHNzdXJ2ZXllZCA9IFx1MDAxYlszMW1jb2xfY2hhcmFjdGVyKClcdTAwMWJbMzltLFxuICBzY2hvb2x0eXBlID0gXHUwMDFiWzMxbWNvbF9jaGFyYWN0ZXIoKVx1MDAxYlszOW0sXG4gIHBfcTUgPSBcdTAwMWJbMzNtY29sX2xvZ2ljYWwoKVx1MDAxYlszOW0sXG4gIHBfcTkgPSBcdTAwMWJbMzNtY29sX2xvZ2ljYWwoKVx1MDAxYlszOW0sXG4gIHBfcTEzYSA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgcF9xMTNiID0gXHUwMDFiWzMzbWNvbF9sb2dpY2FsKClcdTAwMWJbMzltLFxuICBwX3ExM2MgPSBcdTAwMWJbMzNtY29sX2xvZ2ljYWwoKVx1MDAxYlszOW0sXG4gIHBfcTEzZCA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgcF9xMTRhID0gXHUwMDFiWzMzbWNvbF9sb2dpY2FsKClcdTAwMWJbMzltLFxuICBwX3ExNGIgPSBcdTAwMWJbMzNtY29sX2xvZ2ljYWwoKVx1MDAxYlszOW0sXG4gIHBfcTE0YyA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgcF9xMTRkID0gXHUwMDFiWzMzbWNvbF9sb2dpY2FsKClcdTAwMWJbMzltLFxuICB0X3ExMWEgPSBcdTAwMWJbMzNtY29sX2xvZ2ljYWwoKVx1MDAxYlszOW0sXG4gIHRfcTExYiA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgdF9xMTQgPSBcdTAwMWJbMzNtY29sX2xvZ2ljYWwoKVx1MDAxYlszOW0sXG4gIHRfcTE1YSA9IFx1MDAxYlszM21jb2xfbG9naWNhbCgpXHUwMDFiWzM5bSxcbiAgdF9xMTViID0gXHUwMDFiWzMzbWNvbF9sb2dpY2FsKClcdTAwMWJbMzltXG4gICMgLi4uIHdpdGggMTQgbW9yZSBjb2x1bW5zXG4pXG5TZWUgc3BlYyguLi4pIGZvciBmdWxsIGNvbHVtbiBzcGVjaWZpY2F0aW9ucy5cbiJ9 -->
-<pre><code>Parsed with column specification:
-cols(
-  .default = col_double(),
-  dbn = [31mcol_character()[39m,
-  bn = [31mcol_character()[39m,
-  schoolname = [31mcol_character()[39m,
-  studentssurveyed = [31mcol_character()[39m,
-  schooltype = [31mcol_character()[39m,
-  p_q5 = [33mcol_logical()[39m,
-  p_q9 = [33mcol_logical()[39m,
-  p_q13a = [33mcol_logical()[39m,
-  p_q13b = [33mcol_logical()[39m,
-  p_q13c = [33mcol_logical()[39m,
-  p_q13d = [33mcol_logical()[39m,
-  p_q14a = [33mcol_logical()[39m,
-  p_q14b = [33mcol_logical()[39m,
-  p_q14c = [33mcol_logical()[39m,
-  p_q14d = [33mcol_logical()[39m,
-  t_q11a = [33mcol_logical()[39m,
-  t_q11b = [33mcol_logical()[39m,
-  t_q14 = [33mcol_logical()[39m,
-  t_q15a = [33mcol_logical()[39m,
-  t_q15b = [33mcol_logical()[39m
-  # ... with 14 more columns
-)
-See spec(...) for full column specifications.</code></pre>
-<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiR3VpZGVkIFByb2plY3QgIzI6IEFuYWx5c2lzIG9uIE5ZQyBTY2hvb2xzIFN1cnZleSBEYXRhIgphdXRob3I6ICJCZXN0ZSBFcmRlbSIKZGF0ZTogIkphbnVhcnkgMjAsIDIwMjAiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyfQpsaWJyYXJ5KHJlYWRyKQpsaWJyYXJ5KGRwbHlyKQpgYGAKYGBge3J9CnNjaG9vbF9kZiA8LSByZWFkX2NzdigicHJvamVjdC0yLWRhdGEvY29tYmluZWQuY3N2IikKc3VydmV5X2RmMSA8LSByZWFkX3RzdigicHJvamVjdC0yLWRhdGEvbWFzdGVyZmlsZTExX2dlbmVkX2ZpbmFsLnR4dCIpCnN1cnZleV9kZjIgPC0gcmVhZF90c3YoInByb2plY3QtMi1kYXRhL21hc3RlcmZpbGUxMV9kNzVfZmluYWwudHh0IikKYGBgCgoKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiR3VpZGVkIFByb2plY3QgIzI6IEFuYWx5c2lzIG9uIE5ZQyBTY2hvb2xzIFN1cnZleSBEYXRhIgphdXRob3I6ICJCZXN0ZSBFcmRlbSIKZGF0ZTogIkphbnVhcnkgMjAsIDIwMjAiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyfQpsaWJyYXJ5KHJlYWRyKQpsaWJyYXJ5KGRwbHlyKQpgYGAKClNjaG9vbCBkYXRhIEkndmUgYWxyZWFkeSBjbGVhbmVkIG9uIHRoZSBwcmV2aW91cyBtb2R1bGU6IGh0dHBzOi8vZGF0YS53b3JsZC9kYXRhcXVlc3QvbnljLXNjaG9vbHMtZGF0YS93b3Jrc3BhY2UvZmlsZT9maWxlbmFtZT1jb21iaW5lZC5jc3YKU2Nob29sIHN1cnZleSBkYXRhOiBodHRwczovL2RhdGEuY2l0eW9mbmV3eW9yay51cy9FZHVjYXRpb24vMjAxMS1OWUMtU2Nob29sLVN1cnZleS9tbnozLWR5aTgKCmBgYHtyfSAKc2Nob29sX2RmIDwtIHJlYWRfY3N2KCJwcm9qZWN0LTItZGF0YS9jb21iaW5lZC5jc3YiKQpzdXJ2ZXlfZGYxIDwtIHJlYWRfdHN2KCJwcm9qZWN0LTItZGF0YS9tYXN0ZXJmaWxlMTFfZ2VuZWRfZmluYWwudHh0IikKc3VydmV5X2RmMiA8LSByZWFkX3RzdigicHJvamVjdC0yLWRhdGEvbWFzdGVyZmlsZTExX2Q3NV9maW5hbC50eHQiKQpgYGAKCkZpbHRlciBzdXJ2ZXkgZGF0YSB0byBpbmNsdWRlIG9ic2VydmF0aW9ucyBvbmx5IGZvciBoaWdoIHNjaG9vbHMgJiBzZWxlY3QgdGhlIG5lY2Vzc2FyeSBjb2x1bW5zIGZvciB0aGUgYW5hbHlzaXMKYGBge3J9IApzdXJ2ZXlfZGYxX3NlbGVjdCA8LSBzdXJ2ZXlfZGYxICU+JSBmaWx0ZXIoc2Nob29sdHlwZSA9PSAiSGlnaCBTY2hvb2wiKSAlPiUgc2VsZWN0KGRibjphY2FfdG90XzExKQpzdXJ2ZXlfZGYyX3NlbGVjdCA8LSBzdXJ2ZXlfZGYyICU+JSBzZWxlY3QoZGJuOmFjYV90b3RfMTEpCmBgYAoKYGBge3J9CnN1cnZleV9kZiA8LSBiaW5kX3Jvd3Moc3VydmV5X2RmMV9zZWxlY3QsIHN1cnZleV9kZjJfc2VsZWN0KQpgYGAKCgoKCgo=</div>
 
 
 

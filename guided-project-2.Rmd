@@ -9,11 +9,27 @@ output: html_notebook
 library(readr)
 library(dplyr)
 ```
-```{r}
+
+School data I've already cleaned on the previous module: https://data.world/dataquest/nyc-schools-data/workspace/file?filename=combined.csv
+School survey data: https://data.cityofnewyork.us/Education/2011-NYC-School-Survey/mnz3-dyi8
+
+```{r} 
 school_df <- read_csv("project-2-data/combined.csv")
 survey_df1 <- read_tsv("project-2-data/masterfile11_gened_final.txt")
 survey_df2 <- read_tsv("project-2-data/masterfile11_d75_final.txt")
 ```
+
+Filter survey data to include observations only for high schools & select the necessary columns for the analysis
+```{r} 
+survey_df1_select <- survey_df1 %>% filter(schooltype == "High School") %>% select(dbn:aca_tot_11)
+survey_df2_select <- survey_df2 %>% select(dbn:aca_tot_11)
+```
+
+```{r}
+survey_df <- bind_rows(survey_df1_select, survey_df2_select)
+```
+
+
 
 
 
